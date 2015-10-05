@@ -1,11 +1,11 @@
 Name:             h2o
 Version:          1.5.0
-Release:          2%{?dist}
+Release:          3%{?dist}
 Summary:          An optimized HTTP server with support for HTTP/1.x and HTTP/2
 
 License:          MIT
 Url:              https://h2o.github.io/
-Source0:          https://github.com/h2o/h2o/archive/v%{version}.tar.gz
+Source0:          https://github.com/h2o/h2o/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 Source1:          h2o.conf
 Source2:          h2o.service
 Source3:          h2o.logrotate
@@ -26,8 +26,7 @@ H2O is a very fast HTTP server written in C.
 %global _hardened_build 1
 
 %prep
-%setup -q
-%patch0 -p 1
+%autosetup -p 1
 
 %build
 %cmake -DWITH_BUNDLED_SSL=on .
@@ -67,7 +66,6 @@ ctest -V %{?_smp_mflags}
 %systemd_postun_with_restart %{name}.service
 
 %files
-%defattr(-,root,root)
 %doc %{_datarootdir}/doc/%{name}
 %doc %{_mandir}/man1/%{name}.1.gz
 %license LICENSE
@@ -80,6 +78,10 @@ ctest -V %{?_smp_mflags}
 %{_libexecdir}/%{name}/setuidgid
 
 %changelog
+* Mon Oct 05 2015 Martin Hagstrom <marhag87@gmail.com> 1.5.0-3
+- Set source name according to https://fedoraproject.org/wiki/Packaging:SourceURL?rd=Packaging/SourceURL#Git_Tags
+- Use autosetup
+- Remove %defattr
 * Mon Oct 05 2015 Martin Hagstrom <marhag87@gmail.com> 1.5.0-2
 - Set pidfile correctly in systemd service file
 * Fri Oct 02 2015 Martin Hagstrom <martin@mrhg.se> 1.5.0-1

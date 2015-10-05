@@ -1,7 +1,7 @@
 Name:             h2o
 Version:          1.5.0
-Release:          3%{?dist}
-Summary:          An optimized HTTP server with support for HTTP/1.x and HTTP/2
+Release:          4%{?dist}
+Summary:          HTTP server
 
 License:          MIT
 Url:              https://h2o.github.io/
@@ -21,7 +21,7 @@ Requires(preun):  systemd
 Requires(postun): systemd
 
 %description
-H2O is a very fast HTTP server written in C.
+H2O is a very fast HTTP server written in C. It supports HTTP/1.x and HTTP/2
 
 %global _hardened_build 1
 
@@ -55,29 +55,33 @@ rm -rf %{buildroot}%{_prefix}/lib/libh2o-evloop.so
 ctest -V %{?_smp_mflags}
 
 %post
-/sbin/ldconfig
 %systemd_post %{name}.service
 
 %preun
 %systemd_preun %{name}.service
 
 %postun
-/sbin/ldconfig
 %systemd_postun_with_restart %{name}.service
 
 %files
-%doc %{_datarootdir}/doc/%{name}
-%doc %{_mandir}/man1/%{name}.1.gz
+%{_datarootdir}/doc/%{name}
+%{_mandir}/man1/%{name}.1.gz
 %license LICENSE
+%{_sysconfdir}/%{name}
 %config(noreplace) %{_sysconfdir}/%{name}/%{name}.conf
 %config(noreplace) %{_sysconfdir}/logrotate.d/%{name}
 %{_unitdir}/%{name}.service
 %{_bindir}/%{name}
 %attr(755,nobody,nobody) %dir %{_localstatedir}/log/%{name}
 %{_datarootdir}/%{name}
+%{_libexecdir}/%{name}
 %{_libexecdir}/%{name}/setuidgid
 
 %changelog
+* Mon Oct 05 2015 Martin Hagstrom <marhag87@gmail.com> 1.5.0-4
+- Update summary and description
+- Remove ldconfig
+- Take ownership of more directories
 * Mon Oct 05 2015 Martin Hagstrom <marhag87@gmail.com> 1.5.0-3
 - Set source name according to https://fedoraproject.org/wiki/Packaging:SourceURL?rd=Packaging/SourceURL#Git_Tags
 - Use autosetup

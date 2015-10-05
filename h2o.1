@@ -1,0 +1,50 @@
+.TH H2O 1
+.SH NAME
+h2o \- An optimized HTTP server with support for HTTP/1.x and HTTP/2
+.SH SYNOPSIS
+.B h2o
+[\fB\-c\fR FILE\fR]
+[\fB\-\-conf\fR FILE\fR]
+[\fB\-m\fR <mode>\fR]
+[\fB\-\-mode\fR <mode>\fR]
+[\fB\-t\fR]
+[\fB\-v\fR]
+[\fB\-h\fR]
+.SH DESCRIPTION
+.B H2O is a new generation HTTP server. Not only is it very fast, it also provides much quicker response to end-users when compared to older generations of HTTP servers. Written in C and licensed under the MIT License, it can also be used as a library.
+.SH OPTIONS
+.TP
+.BR \-c ", " \-\-conf =\fIFILE\fR
+Configuration file. Default is h2o.conf
+.TP
+.BR \-m ", " \-\-mode =worker|daemon|master|test
+Specifies one of the following modes
+.RS 3
+.TP 10
+.B worker
+invoked process handles incoming connections
+.TP
+.B daemon
+spawns a master process and exits.
+.I error-log
+must be configured when using this mode, as all the errors are logged to the file instead of being emitted to STDERR
+.TP
+.B master
+invoked process becomes a master process (using the
+.I "/usr/share/h2o/start_server"
+command) and spawns a worker process for handling incoming connections. Users may send SIGHUP to the master process to reconfigure or upgrade the server.
+.TP
+.B test
+tests the configuration and exits
+.RE
+.TP
+.BR \-t
+Synonym to \-\-mode=test
+.TP
+.BR \-v
+Output version information and exit
+.TP
+.BR \-h
+Display this help and exit
+.TP
+Please refer to the documentation under \fI/usr/share/doc/h2o\fR (or available online at http://h2o.examp1e.net/) for how to configure the server.

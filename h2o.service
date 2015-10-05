@@ -4,6 +4,7 @@ After=network.target remote-fs.target nss-lookup.target
 
 [Service]
 Type=simple
+PIDFile=/var/run/h2o.pid
 WorkingDirectory=/etc/h2o
 ExecStart=/usr/bin/h2o -c /etc/h2o/h2o.conf &
 ExecReload=/usr/bin/kill -HUP $MAINPID

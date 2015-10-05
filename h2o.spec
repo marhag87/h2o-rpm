@@ -1,6 +1,6 @@
 Name:             h2o
 Version:          1.5.0
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          An optimized HTTP server with support for HTTP/1.x and HTTP/2
 
 License:          MIT
@@ -80,5 +80,7 @@ ctest -V %{?_smp_mflags}
 %{_libexecdir}/%{name}/setuidgid
 
 %changelog
+* Mon Oct 05 2015 Martin Hagstrom <marhag87@gmail.com> 1.5.0-2
+- Set pidfile correctly in systemd service file
 * Fri Oct 02 2015 Martin Hagstrom <martin@mrhg.se> 1.5.0-1
 - Initial release

@@ -1,6 +1,6 @@
 Name:             h2o
 Version:          1.5.0
-Release:          4%{?dist}
+Release:          5%{?dist}
 Summary:          HTTP server
 
 License:          MIT
@@ -11,10 +11,9 @@ Source2:          h2o.service
 Source3:          h2o.logrotate
 Source4:          h2o.1
 
-# https://github.com/h2o/h2o/issues/537
-Patch0:           setuidgid.patch
-
 BuildRequires:    cmake, openssl-devel, gcc-c++, make, systemd
+# Required for tests
+BuildRequires:    perl-Test-Harness, perl-Digest-MD5, perl-Test-TCP, perl-Scope-Guard, perl-URI, perl-IO-Socket-SSL
 Requires:         perl-Server-Starter, openssl
 Requires(post):   systemd
 Requires(preun):  systemd
@@ -29,7 +28,7 @@ H2O is a very fast HTTP server written in C. It supports HTTP/1.x and HTTP/2
 %autosetup -p 1
 
 %build
-%cmake -DWITH_BUNDLED_SSL=on .
+%cmake -DWITHOUT_LIBS=ON .
 make %{?_smp_mflags}
 
 %install
@@ -47,12 +46,8 @@ install -p -m 0644 %{SOURCE2} %{buildroot}%{_unitdir}/%{name}.service
 install -p -m 0644 %{SOURCE3} %{buildroot}%{_sysconfdir}/logrotate.d/%{name}
 install -p -m 0644 %{SOURCE4} %{buildroot}%{_mandir}/man1/%{name}.1
 
-# https://github.com/h2o/h2o/issues/536
-rm -rf %{buildroot}%{_includedir}
-rm -rf %{buildroot}%{_prefix}/lib/libh2o-evloop.so
-
 %check
-ctest -V %{?_smp_mflags}
+make check
 
 %post
 %systemd_post %{name}.service
@@ -67,17 +62,20 @@ ctest -V %{?_smp_mflags}
 %{_datarootdir}/doc/%{name}
 %{_mandir}/man1/%{name}.1.gz
 %license LICENSE
-%{_sysconfdir}/%{name}
+%dir %{_sysconfdir}/%{name}
 %config(noreplace) %{_sysconfdir}/%{name}/%{name}.conf
 %config(noreplace) %{_sysconfdir}/logrotate.d/%{name}
 %{_unitdir}/%{name}.service
 %{_bindir}/%{name}
 %attr(755,nobody,nobody) %dir %{_localstatedir}/log/%{name}
 %{_datarootdir}/%{name}
-%{_libexecdir}/%{name}
-%{_libexecdir}/%{name}/setuidgid
 
 %changelog
+* Wed Oct 14 2015 Martin Hagstrom <marhag87@gmail.com> 1.5.0-5
+- Don't bundle SSL
+- Don't build libs
+- Take proper ownership of files
+- Run tests properly
 * Mon Oct 05 2015 Martin Hagstrom <marhag87@gmail.com> 1.5.0-4
 - Update summary and description
 - Remove ldconfig

@@ -1,6 +1,6 @@
 Name:             h2o
-Version:          1.5.0
-Release:          5%{?dist}
+Version:          1.5.2
+Release:          1%{?dist}
 Summary:          HTTP server
 
 License:          MIT
@@ -71,6 +71,8 @@ make check
 %{_datarootdir}/%{name}
 
 %changelog
+* Tue Oct 20 2015 Martin Hagstrom <marhag87@gmail.com> 1.5.2-1
+- Update to version 1.5.2
 * Wed Oct 14 2015 Martin Hagstrom <marhag87@gmail.com> 1.5.0-5
 - Don't bundle SSL
 - Don't build libs

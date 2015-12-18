@@ -1,5 +1,5 @@
 Name:             h2o
-Version:          1.6.0
+Version:          1.6.1
 Release:          1%{?dist}
 Summary:          HTTP server
 
@@ -71,6 +71,8 @@ make check
 %{_datarootdir}/%{name}
 
 %changelog
+* Fri Dec 18 2015 Martin Hagstrom <marhag87@gmail.com> 1.6.1-1
+- Update to version 1.6.1
 * Fri Dec 04 2015 Martin Hagstrom <marhag87@gmail.com> 1.6.0-1
 - Update to version 1.6.0
 * Sat Nov 14 2015 Martin Hagstrom <marhag87@gmail.com> 1.5.4-1

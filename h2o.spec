@@ -1,6 +1,6 @@
 Name:             h2o
 Version:          1.6.1
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          HTTP server
 
 License:          MIT
@@ -18,6 +18,7 @@ Requires:         perl-Server-Starter, openssl
 Requires(post):   systemd
 Requires(preun):  systemd
 Requires(postun): systemd
+Requires(check):  nghttp2, httpd-tools, memcached, curl >= 7.43.0-2
 
 %description
 H2O is a very fast HTTP server written in C. It supports HTTP/1.x and HTTP/2
@@ -71,6 +72,8 @@ make check
 %{_datarootdir}/%{name}
 
 %changelog
+* Fri Dec 18 2015 Martin Hagstrom <marhag87@gmail.com> 1.6.1-2
+- Add dependencies for check
 * Fri Dec 18 2015 Martin Hagstrom <marhag87@gmail.com> 1.6.1-1
 - Update to version 1.6.1
 * Fri Dec 04 2015 Martin Hagstrom <marhag87@gmail.com> 1.6.0-1

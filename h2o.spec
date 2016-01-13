@@ -1,6 +1,6 @@
 Name:             h2o
-Version:          1.6.1
-Release:          2%{?dist}
+Version:          1.6.2
+Release:          1%{?dist}
 Summary:          HTTP server
 
 License:          MIT
@@ -72,6 +72,8 @@ make check
 %{_datarootdir}/%{name}
 
 %changelog
+* Fri Dec 18 2015 Martin Hagstrom <marhag87@gmail.com> 1.6.2-1
+- Update to version 1.6.2
 * Fri Dec 18 2015 Martin Hagstrom <marhag87@gmail.com> 1.6.1-2
 - Add dependencies for check
 * Fri Dec 18 2015 Martin Hagstrom <marhag87@gmail.com> 1.6.1-1

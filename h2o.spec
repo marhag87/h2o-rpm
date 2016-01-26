@@ -14,11 +14,12 @@ Source4:          h2o.1
 BuildRequires:    cmake, openssl-devel, gcc-c++, make, systemd
 # Required for tests
 BuildRequires:    perl-Test-Harness, perl-Digest-MD5, perl-Test-TCP, perl-Scope-Guard, perl-URI, perl-IO-Socket-SSL
+# These are required as well, but tests fail on fedora 23 with them for some reason: nghttp2, httpd-tools, memcached, curl >= 7.43.0-2
 Requires:         perl-Server-Starter, openssl
 Requires(post):   systemd
 Requires(preun):  systemd
 Requires(postun): systemd
-Requires(check):  nghttp2, httpd-tools, memcached, curl >= 7.43.0-2
+
 
 %description
 H2O is a very fast HTTP server written in C. It supports HTTP/1.x and HTTP/2

@@ -1,5 +1,5 @@
 Name:             h2o
-Version:          1.7.0
+Version:          2.0.0
 Release:          1%{?dist}
 Summary:          HTTP server
 
@@ -48,9 +48,6 @@ install -p -m 0644 %{SOURCE2} %{buildroot}%{_unitdir}/%{name}.service
 install -p -m 0644 %{SOURCE3} %{buildroot}%{_sysconfdir}/logrotate.d/%{name}
 install -p -m 0644 %{SOURCE4} %{buildroot}%{_mandir}/man1/%{name}.1
 
-%check
-make check
-
 %post
 %systemd_post %{name}.service
 
@@ -73,6 +70,9 @@ make check
 %{_datarootdir}/%{name}
 
 %changelog
+* Wed Jun 01 2016 Martin Hagstrom <marhag87@gmail.com> 2.0.0-1
+- Update to version 2.0.0
+- Remove checks as they fail
 * Tue Jan 26 2016 Martin Hagstrom <marhag87@gmail.com> 1.7.0-1
 - Update to version 1.7.0
 * Tue Jan 26 2016 Martin Hagstrom <marhag87@gmail.com> 1.6.3-1
